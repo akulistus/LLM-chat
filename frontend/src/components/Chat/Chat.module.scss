@@ -1,0 +1,9 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--chat-bg-color);
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: solid 1px #191919;
+}

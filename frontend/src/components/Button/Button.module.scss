@@ -1,6 +1,18 @@
 .button {
     display: flex;
     gap: 2px;
+    padding: 3px 11px;
 
     border-radius: 16px;
+    cursor: pointer;
+}
+
+.light {
+    background-color: #fff;
+    color: #000
+}
+
+.dark {
+    background-color: #0e0e0e;
+    color: #777777;
 }

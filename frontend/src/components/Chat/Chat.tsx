@@ -1,20 +1,14 @@
 import { Toolbar } from "./Toolbar/Toolbar";
+import { Input } from "./Input/Input";
 
 import cls from "./Chat.module.scss";
 
-interface ChatProps {
-  palceholder?: string;
-
-}
-
-export const Chat: React.FC<ChatProps> = (props) => {
-  const {
-    palceholder,
-  } = props;
+export const Chat: React.FC = () => {
 
   return (
-    <div className={cls["chat-container"]}>
+    <form className={cls["chat-container"]}>
+      <Input />
       <Toolbar />
-    </div>
+    </form>
   );
 }

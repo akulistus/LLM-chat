@@ -1,15 +1,19 @@
 import { Button } from "../../Button/Button";
+import SendIcon from "../../../assets/icons/icon-send.svg?react";
+import AttachIcon from "../../../assets/icons/icon-attach.svg?react";
 
 import cls from "./Toolbar.module.scss";
 
 export const Toolbar: React.FC = () => {
   return (
     <div className={cls["toolbar-container"]}>
-      <Button>
-        send
+      <Button theme="dark">
+        <AttachIcon />
+        Attach
       </Button>
-      <Button>
-        attach
+      <Button type="submit">
+        <SendIcon />
+        Send
       </Button>
     </div>
   )

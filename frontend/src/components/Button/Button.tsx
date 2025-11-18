@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 
 import cls from "./Button.module.scss";
+import { classNames } from "../../utils/classNames";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   theme?: "light" | "dark",
@@ -8,12 +9,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button: React.FC<ButtonProps> = (props) => {
   const {
-    theme,
+    theme = "light",
     children
   } = props;
 
   return (
-    <button className={cls.button}>
+    <button className={classNames(cls.button, [cls[theme]])}>
       {children}
     </button>
   )

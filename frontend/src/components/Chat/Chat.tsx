@@ -7,7 +7,7 @@ export const Chat: React.FC = () => {
 
   return (
     <form className={cls["chat-container"]}>
-      <Input />
+      <Input placeholder="Ask anything" />
       <Toolbar />
     </form>
   );

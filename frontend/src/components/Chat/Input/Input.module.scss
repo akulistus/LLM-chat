@@ -1,0 +1,21 @@
+.input-container {
+    min-height: 54px;
+    max-height: 200px;
+}
+
+.input-area {
+    border: none;
+    outline: none;
+    color: #777777;
+
+}
+
+.input-area p:empty::before {
+    content: attr(data-placeholder);
+    z-index: -1;
+    user-select: none;
+}
+
+.input-area p:empty:focus::before {
+    content: "";
+}

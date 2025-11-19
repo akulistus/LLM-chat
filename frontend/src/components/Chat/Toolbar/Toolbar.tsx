@@ -5,13 +5,17 @@ import AttachIcon from "../../../assets/icons/icon-attach.svg?react";
 import cls from "./Toolbar.module.scss";
 
 export const Toolbar: React.FC = () => {
+  const handleClickSend = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div className={cls["toolbar-container"]}>
       <Button theme="dark">
         <AttachIcon />
         Attach
       </Button>
-      <Button type="submit">
+      <Button type="submit" onClick={handleClickSend}>
         <SendIcon />
         Send
       </Button>

@@ -1,32 +1,35 @@
-import { useCallback, useState } from "react";
-
+import { useCallback, type FormEvent, } from "react";
 import cls from "./Input.module.scss";
 
 interface InputProps {
-  placeholder?: string
+  placeholder?: string,
+  value: string,
+  onChange: (value: string) => void,
 }
 
 export const Input: React.FC<InputProps> = (props) => {
   const {
     placeholder = "",
+    value = "test",
+    onChange
   } = props;
-  const [value, setValue] = useState<string>("");
 
-  const handleInput = useCallback((e: React.InputEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setValue(e.currentTarget.textContent);
-  }, []);
+  const handleInput = useCallback((e: FormEvent<HTMLDivElement>) => {
+    onChange(e.currentTarget.innerText);
+  }, [onChange]);
 
   return (
     <div className={cls["input-container"]}>
       <div
         className={cls["input-area"]}
         contentEditable="true"
-        suppressContentEditableWarning={true}
+        suppressContentEditableWarning={true}        
         onInput={handleInput}
-        
       >
-        <p data-placeholder={placeholder}>
+        <p 
+          data-placeholder={placeholder}
+        >
+          {value}
         </p>
       </div>
     </div>

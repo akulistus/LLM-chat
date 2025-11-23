@@ -17,6 +17,7 @@ const messagesReducer = (state: { messages: string[] }, action: ActionType) => {
   switch(action.type) {
     case "post": {
       return {
+        ...state,
         messages: [...state.messages, action.payload]
       };
     }

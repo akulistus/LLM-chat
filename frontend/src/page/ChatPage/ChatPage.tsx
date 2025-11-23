@@ -1,6 +1,6 @@
 import { Chat } from "../../components/Chat/Chat";
 import { MessageBox } from "../../components/Messages/MessageBox/MessageBox";
-import { MessageProvider } from "../../config/providers/MessageProvieder";
+import { MessageProvider } from "../../config/providers/MessageProvider";
 
 import cls from "./ChartPage.module.scss";
 

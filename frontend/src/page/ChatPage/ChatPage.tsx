@@ -1,5 +1,5 @@
 import { Chat } from "../../components/Chat/Chat";
-import { MessageBox } from "../../components/Messages/MessageBox/MessageBox";
+import { MessageContainer } from "../../components/Messages/MessageContainer/MessageContainer";
 import { MessageProvider } from "../../config/providers/MessageProvider";
 
 import cls from "./ChartPage.module.scss";
@@ -9,7 +9,7 @@ export const ChartPage: React.FC = () => {
     <MessageProvider>
       <div className={cls["chat-page"]}>
         <div className={cls["message-box-container"]}>
-          <MessageBox />
+          <MessageContainer />
         </div>
         <div className={cls["chat-container"]}>
           <Chat />

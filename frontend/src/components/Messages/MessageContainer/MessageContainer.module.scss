@@ -1,0 +1,11 @@
+.message-box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: auto;
+    max-width: 600px;
+    width: 100%;
+    gap: 30px;
+    overflow: auto;
+    min-height: 0;
+}

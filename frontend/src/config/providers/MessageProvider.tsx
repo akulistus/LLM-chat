@@ -6,7 +6,7 @@ export const MessageProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [messages, dispatch] = useReducer(messagesReducer, initialState);
   return(
     <MessageContext.Provider value={messages}>
-      <MessgaeDispatchContext.Provider value={dispatch}>
+      <MessgaeDispatchContext.Provider value={{dispatch}}>
         {children}
       </MessgaeDispatchContext.Provider>
     </MessageContext.Provider>
@@ -18,7 +18,7 @@ const messagesReducer = (state: { messages: string[] }, action: ActionType) => {
     case "post": {
       return {
         ...state,
-        messages: [...state.messages, ...action.payload]
+        messages: [...state.messages, action.payload]
       };
     }
     default: {
@@ -28,5 +28,5 @@ const messagesReducer = (state: { messages: string[] }, action: ActionType) => {
 };
 
 const initialState = {
-  messages: ["test"]
+  messages: [],
 };

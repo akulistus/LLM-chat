@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { ActionType, MessageContextProps } from "../../@types/messages";
+import type { MessageContextProps, MessgaeDispatchContextProps } from "../../@types/messages";
 
-export const MessageContext = createContext<MessageContextProps | null>(null);
-export const MessgaeDispatchContext = createContext<React.Dispatch<ActionType> | null>(null);
+export const MessageContext = createContext<MessageContextProps>({ messages: [] });
+export const MessgaeDispatchContext = createContext<MessgaeDispatchContextProps>({} as MessgaeDispatchContextProps);

@@ -23,7 +23,6 @@ export const Chat: React.FC = () => {
       onSubmit={handleSubmit}
     >
       <Input
-        value={message}
         placeholder="Ask anything"
         onChange={setMessage}
       />

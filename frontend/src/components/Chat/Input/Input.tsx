@@ -3,14 +3,12 @@ import cls from "./Input.module.scss";
 
 interface InputProps {
   placeholder?: string,
-  value: string,
   onChange: (value: string) => void,
 }
 
 export const Input: React.FC<InputProps> = (props) => {
   const {
     placeholder = "",
-    value = "test",
     onChange
   } = props;
 
@@ -28,9 +26,7 @@ export const Input: React.FC<InputProps> = (props) => {
       >
         <p 
           data-placeholder={placeholder}
-        >
-          {value}
-        </p>
+        />
       </div>
     </div>
   )

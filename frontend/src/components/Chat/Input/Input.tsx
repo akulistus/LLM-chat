@@ -1,32 +1,28 @@
-import { useCallback, type FormEvent, } from "react";
+import { type HTMLAttributes, type RefObject, } from "react";
 import cls from "./Input.module.scss";
 
-interface InputProps {
+interface InputProps extends HTMLAttributes<HTMLInputElement> {
   placeholder?: string,
-  onChange: (value: string) => void,
+  ref: RefObject<HTMLDivElement | null>,
 }
 
 export const Input: React.FC<InputProps> = (props) => {
   const {
     placeholder = "",
-    onChange
+    ref,
+    ...othreProps
   } = props;
-
-  const handleInput = useCallback((e: FormEvent<HTMLDivElement>) => {
-    onChange(e.currentTarget.innerText);
-  }, [onChange]);
 
   return (
     <div className={cls["input-container"]}>
       <div
+        ref={ref}
         className={cls["input-area"]}
         contentEditable="true"
+        data-placeholder={placeholder}
         suppressContentEditableWarning={true}        
-        onInput={handleInput}
+        {...othreProps}
       >
-        <p 
-          data-placeholder={placeholder}
-        />
       </div>
     </div>
   )

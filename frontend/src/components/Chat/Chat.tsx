@@ -1,30 +1,53 @@
+import { useCallback, useContext, useRef, type KeyboardEvent } from "react";
+import { MessgaeDispatchContext } from "../../config/contexts/MessgeContext";
+import { MessageType } from "../../@types/messages";
+import { messagesApi } from "../../services/messagesApi";
+
 import { Toolbar } from "./Toolbar/Toolbar";
 import { Input } from "./Input/Input";
 
 import cls from "./Chat.module.scss";
-import { useCallback, useContext, useState, type FormEvent } from "react";
-import { MessgaeDispatchContext } from "../../config/contexts/MessgeContext";
 
 export const Chat: React.FC = () => {
-  const [message, setMessage] = useState("");
+  const inputRef = useRef<HTMLDivElement>(null);
   const { dispatch } = useContext(MessgaeDispatchContext);
 
-  const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch({
-      type: "post",
-      payload: message
-    });
-  }, [message, dispatch]);
+  const handleKeyDown = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.currentTarget.closest("form")?.requestSubmit();
+    }
+  }, []);
+
+  const handleSubmit = useCallback(async () => {
+    if (!inputRef.current) return;
+    const prompt = inputRef.current.textContent.trim();
+    if (!prompt) return;
+
+    try {
+      const result = await messagesApi.post(prompt);
+      dispatch({
+        type: "add",
+        payload: {
+          type: MessageType.REQUEST,
+          id: result.id,
+          data: prompt
+        }
+      });
+    } finally {
+      inputRef.current.textContent = "";
+    }
+  }, [dispatch]);
 
   return (
     <form
       className={cls["chat-container"]}
-      onSubmit={handleSubmit}
+      action={handleSubmit}
     >
       <Input
         placeholder="Ask anything"
-        onChange={setMessage}
+        ref={inputRef}
+        onKeyDown={handleKeyDown}
       />
       <Toolbar />
     </form>

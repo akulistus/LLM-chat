@@ -1,3 +1,4 @@
+import type { PostMessageResponse } from "../@types/services";
 import { apiRoutes } from "../helpers/routes";
 
 export const messagesApi = {
@@ -13,7 +14,7 @@ const getMessages = async () => {
   return result;
 };
 
-const postMessage = async (message: string) => {
+const postMessage = async (message: string): Promise<PostMessageResponse> => {
   const result = await fetch(apiRoutes.messages(), {
     method: "POST",
     headers: {
@@ -24,5 +25,5 @@ const postMessage = async (message: string) => {
     })
   });
 
-  return result;
+  return result.json();
 };

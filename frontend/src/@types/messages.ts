@@ -1,5 +1,27 @@
+export enum MessageType {
+  REQUEST = "request",
+  RESPONSE = "response"
+};
+
+type MessageBase = {
+  id: number,
+  type: MessageType
+};
+
+type Request = MessageBase & {
+  type: MessageType.REQUEST,
+  data: string,
+};
+
+type Response  = MessageBase & {
+  type: MessageType.RESPONSE,
+  data: string
+};
+
+export type TMessage = Request | Response;
+
 export interface MessageContextProps {
-  messages: string[]
+  messages: TMessage[]
 };
 
 export interface MessgaeDispatchContextProps {
@@ -7,6 +29,6 @@ export interface MessgaeDispatchContextProps {
 }
 
 export type ActionType = {
-  type: "post",
-  payload: string
+  type: "add" | "append",
+  payload: TMessage
 };

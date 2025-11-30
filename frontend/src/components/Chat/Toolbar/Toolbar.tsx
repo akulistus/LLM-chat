@@ -7,7 +7,7 @@ import cls from "./Toolbar.module.scss";
 export const Toolbar: React.FC = () => {
   return (
     <div className={cls["toolbar-container"]}>
-      <Button theme="dark">
+      <Button type="button" theme="dark">
         <AttachIcon />
         Attach
       </Button>

@@ -4,9 +4,19 @@
 }
 
 .input-area {
+    position: relative;
     height: 100%;
     border: none;
     outline: none;
     color: #777777;
     overflow: auto;
+}
+
+.input-area:empty:before,
+.input-area:has(> br:only-child)::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }

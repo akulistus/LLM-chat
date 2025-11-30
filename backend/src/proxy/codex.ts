@@ -1,4 +1,4 @@
-import { ServiceConfig } from "../@types/service";
+import type { ServiceConfig } from "../@types/service";
 
 const fetchStream = (prmpt: string) => {
   return fetch("http://llm.codex.so/stream", {
@@ -17,14 +17,18 @@ const fetchStream = (prmpt: string) => {
 export const genearate = async (prmpt: string, appConfig: ServiceConfig) => {
   const { wss, idManager } = appConfig;
   const id = idManager.next();
+  const decoder = new TextDecoder();
 
   const upstram = await fetchStream(prmpt);
-  for await (const chunck of upstram.body) {
-    wss.clients.forEach(client => {
-      client.send(JSON.stringify({
-        id,
-        data: chunck
-      }));
-    })
+  if (upstram.body) {
+    for await (const chunk of upstram.body) {
+      const text = decoder.decode(chunk, { stream: true });
+      wss.clients.forEach(client => {
+        client.send(JSON.stringify({
+          id,
+          chunk: text
+        }));
+      });
+    }
   }
 }

@@ -4,5 +4,10 @@ export type PostMessageResponse = {
 
 export type WSMessage = {
   id: number,
-  data: string,
+  chunk: string,
+}
+
+export type Token = {
+  type: "start" | "reasoning-start" | "reasoning-delta" | "reasoning-end" | "text-start" | "text-delta" | "text-end" | "finish",
+  delta: string
 }

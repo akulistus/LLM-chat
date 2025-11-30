@@ -1,8 +1,8 @@
-import { ServiceConfig } from "../@types/service";
+import type { ServiceConfig } from "../@types/service";
 import { genearate } from "proxy/codex";
 
 export default (appConfig: ServiceConfig) => {
-  const { app, wss, idManager } = appConfig;  
+  const { app, idManager } = appConfig;  
   app.post("/api/messages", async (request, response) => {
     const id = idManager.next();
     console.log("POST new promt with id " + id);

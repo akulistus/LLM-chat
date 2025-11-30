@@ -1,0 +1,46 @@
+.response {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.57;
+}
+
+.response p,
+.response h1,
+.response h2,
+.response h3 {
+    max-width: 422px;
+}
+
+.response h3 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.19;
+}
+
+.response table,
+.response th,
+.response td {
+    margin: 0;
+    border-spacing: 0;
+}
+
+.response table {
+    width: 100%;
+    max-width: 530px;
+}
+
+.response table th,
+.response table tr {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #191919;
+}
+
+.response table th {
+    font-weight: 600;
+}

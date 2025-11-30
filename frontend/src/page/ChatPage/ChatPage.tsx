@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { Chat } from "../../components/Chat/Chat";
 import { MessageContainer } from "../../components/Messages/MessageContainer/MessageContainer";
 import { apiRoutes } from "../../helpers/routes";
@@ -6,9 +6,11 @@ import { MessgaeDispatchContext } from "../../config/contexts/MessgeContext";
 
 import cls from "./ChartPage.module.scss";
 import { MessageType } from "../../@types/messages";
-import type { WSMessage } from "../../@types/services";
+import type { Token, WSMessage } from "../../@types/services";
 
 export const ChartPage: React.FC = () => {
+  const messageId = useRef<number>(-1);
+  const buffer = useRef<string>("");
   const { dispatch } = useContext(MessgaeDispatchContext);
 
   useEffect(() => {
@@ -19,18 +21,41 @@ export const ChartPage: React.FC = () => {
 
     ws.onmessage = ((ev: MessageEvent<string>) => {
       const message: WSMessage = JSON.parse(ev.data);
-      console.log(message);
-      dispatch({
-        type: "append",
-        payload: {
-          type: MessageType.RESPONSE,
-          id: message.id,
-          data: message.data
+      if (message.id !== messageId.current) {
+        buffer.current = "";
+        messageId.current = message.id;
+      }
+      buffer.current += message.chunk;
+      console.log(buffer.current);
+      const lines: Token[] = buffer.current.split(/(?=\{"type")/)
+        .filter(token => token.trim())
+        .map(token => {
+          console.log(token);
+          return JSON.parse(token);
+        });
+      buffer.current = JSON.stringify(lines.pop()!);
+      for (const line of lines) {
+        if (line.type === "text-delta") {
+          if (!line.delta.trim()) continue;
+          console.log(line);
+          dispatch({
+            type: "append",
+            payload: {
+              type: MessageType.RESPONSE,
+              id: message.id,
+              data: line.delta
+            }
+          });
         }
-      })
+      }
     });
 
-  }, [dispatch]);
+    return () => {
+      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+        ws.close();
+      }
+    }
+  }, [dispatch, buffer]);
 
   return (
     <div className={cls["chat-page"]}>

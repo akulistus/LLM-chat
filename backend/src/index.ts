@@ -2,7 +2,7 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import { WebSocketServer } from "ws";
-import { ServiceConfig } from "./@types/service";
+import type { ServiceConfig } from "./@types/service";
 import { IdManager } from "utils/idManager";
 import InitMessages from "./routes/messages";
 
